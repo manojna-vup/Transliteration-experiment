@@ -1,14 +1,12 @@
-// Slide-based p5 sketch with 5 slides
 let speechRec;
 let resultText = "";
 let displayText = "";
 let targetText = "";
 let typingIndex = 0;
-let phase = "waiting"; // various typing/erasing phases
+let phase = "waiting"; 
 let customFont;
 let currentSlide = 0;
 
-// slide questions
 const questions = [
   "HOW DO YOU SAY KNOWLEDGE IN YOUR LANGUAGE?",
   "WHAT'S A WORD OR PHRASE THAT CANNOT BE TRANSLATED INTO ENGLISH?",
@@ -17,12 +15,11 @@ const questions = [
   "WHAT WAS YOUR FIRST EXPERIENCE LIKE READING OR WRITING YOUR LANGUAGE IN ANOTHER SCRIPT?"
 ];
 
-// slide background colors
+
 const slideBGColors = ["#A3D1F6","#F9F09C","#B8B7FF","#E38952","#477152"];
-// slide text colors
 const textColors = ["#06007F","#762671","#21007F","#6D2025","#FFC3FC"];
 
-// timing helper
+
 let finishedTypingTime = 0;
 
 function preload() {
@@ -35,9 +32,9 @@ function setup() {
   textAlign(LEFT, TOP);
   fill(textColors[currentSlide]);
 
-  // speech recognition in English
+  
   speechRec = new p5.SpeechRec('en-US', gotSpeech);
-  speechRec.start(true, false); // continuous, only final results
+  speechRec.start(true, false); 
 }
 
 function windowResized() {
@@ -67,7 +64,7 @@ function gotSpeech() {
   resultText = speechRec.resultString.toUpperCase();
   console.log("Heard:", resultText);
 
-  // slide-specific phases
+ 
   switch(currentSlide) {
     case 0:
       targetText = resultText;
@@ -101,13 +98,13 @@ function draw() {
   background(slideBGColors[currentSlide]);
   fill(textColors[currentSlide]);
 
-  // Draw question with wrapping
+ 
   textSize(70);
   const margin = 40;
   const maxQW = width - margin*2;
   text(questions[currentSlide], margin, 40, maxQW, 300);
 
-  // Draw slide content
+  
   switch(currentSlide) {
     case 0: drawSlide1(); break;
     case 1: drawSlide2(); break;
@@ -117,7 +114,7 @@ function draw() {
   }
 }
 
-// ---------------- Slide 1 ----------------
+
 function drawSlide1() {
   textSize(70);
   const margin = 40;
@@ -152,12 +149,12 @@ function drawSlide1() {
   }
 }
 
-// ---------------- Slide 2 & 3 ----------------
+
 function drawSlide2() {
   renderSlideWithUnderline(true);
 }
 
-// ---------------- Slide 4 ----------------
+
 function drawSlide4() {
   textSize(70);
   const margin = 40;
@@ -165,7 +162,7 @@ function drawSlide4() {
   const maxLineWidth = width - margin*2;
   const lineHeight = 80;
 
-  // typing animation
+  
   if (phase === "typing_slide4") {
     if (frameCount % 4 === 0 && typingIndex < targetText.length) {
       displayText += targetText.charAt(typingIndex);
@@ -195,7 +192,7 @@ function drawSlide4() {
 
   let startY = ansY - (lines.length-1)*lineHeight;
 
-  // draw words as outlines
+  
   for (let i=0;i<lines.length;i++){
     let lineText = lines[i];
     let y = startY + i*lineHeight;
@@ -211,7 +208,7 @@ function drawSlide4() {
       text(w, x, y);
       noStroke();
 
-      // red dotted underline
+      
      
 
       x += wWidth + textWidth(" ");
@@ -219,7 +216,7 @@ function drawSlide4() {
   }
 }
 
-// ---------------- Slide 5 ----------------
+
 function drawSlide5() {
   textSize(70);
   const margin = 40;
@@ -264,7 +261,7 @@ function drawSlide5() {
   }
 }
 
-// ---------------- Helper ----------------
+
 function renderSlideWithUnderline(addUnderline){
   textSize(70);
   const margin = 40;
