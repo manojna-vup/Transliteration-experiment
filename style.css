@@ -1,14 +1,14 @@
-/* minimal styling - canvas will fill screen */
+
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   background: #000;
   color: #fff;
-  font-family: "PPNeueMontrealMono", monospace; /* for fallback if needed */
+  font-family: "PPNeueMontrealMono", monospace; 
 }
 
-/* ensure canvas uses full viewport */
+
 canvas {
   display: block;
 }
